@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  test-map:
+    parameters:
+      country_code:
+        type: enum
+        enum:
+          - us
+          - jp
+    docker:
+      - image: cimg/base:stable
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          name: Set REGION
+          command: |  
+            ./mapper.sh << parameters.country_code >>
+      - run:
+          name: Check
+          command: |
+            printenv REGION
+
+workflows:
+  main:
+    jobs:
+      test-map
