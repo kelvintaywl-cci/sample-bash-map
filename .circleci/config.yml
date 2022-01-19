@@ -25,4 +25,5 @@ jobs:
 workflows:
   main:
     jobs:
-      test-map
+      - test-map:
+          country_code: jp
